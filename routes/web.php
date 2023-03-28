@@ -14,11 +14,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[PagesController::class,'welcome']);
-
+Route::get('/',[PagesController::class,'store']);
 Route::get('/next',[PagesController::class,'nextPage']);
 Route::get('/profile/{id}/{second}',[PagesController::class,'profile']);
 Route::get('/create',[PagesController::class,'create']);
-Route::post('/create',[PagesController::class,'store']);
+Route::post('/create',[PagesController::class,'storeage']);
 Route::get('/list',[PagesController::class,'list']);
+Route::get('/edit/{id}',[PagesController::class,'edit']);
+Route::post('/edit',[PagesController::class,'update']);
+Route::get('/delete/{id}',[PagesController::class,'delete']);
+Route::get("/signup",[PagesController::class,'signup']);
+Route::post("/signup",[PagesController::class,'signupForm']);
+Route::get("/login",[PagesController::class,'login']);
+Route::post("/login",[PagesController::class,'loginForm']);
+Route::get("/blank",[PagesController::class,'blank']);
+Route::get("/checkout",[PagesController::class,'checkout']);
+Route::get("/index",[PagesController::class,'index']);
+Route::get("/product/{id}",[PagesController::class,'product']);
+Route::get("/store",[PagesController::class,'store']);
+Route::get("/categories",[PagesController::class,'categories']);
+Route::get("/category_list",[PagesController::class,'category_list']);
+Route::post("/category_list",[PagesController::class,'storage_categories']);
+Route::get('/delete_category/{id}',[PagesController::class,'delete_category']);
+Route::get('/edit_category/{id}',[PagesController::class,'edit_category']);
+Route::post('/edit_category',[PagesController::class,'update_category']);
+Route::get('/product_add',[PagesController::class,'product_add']);
+Route::post('/product_add',[PagesController::class,'storage_product']);
+Route::get('/edit_product/{id}',[PagesController::class,'edit_product']);
+Route::post('/edit_product',[PagesController::class,'update_product']);
 

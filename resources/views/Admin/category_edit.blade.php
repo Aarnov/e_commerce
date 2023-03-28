@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,16 +10,12 @@
 </head>
 <body>
 
-<form action ="{{action([\App\Http\Controllers\PagesController::class,'storeage'])}}" method="post" enctype="multipart/form-data">
+<form action ="{{action([\App\Http\Controllers\PagesController::class,'update_category'])}}" method="post" enctype="multipart/form-data">
     @csrf
+    <input type="hidden" name="id" value="{{$category->id}}">
     <label>Name</label>
-    <input type="text" name="name" required>
-    <label>DOB</label>
-    <input type="date" name="dob" required>
-    <label>Address</label>
-    <input type="text" name="address" required>
-    <label> Image </label>
-    <input type="file" name="image" >
+    <input type="text" name="name" value="{{$category->name}}" required>
+
     <input type="submit">
 
 </form>
