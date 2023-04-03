@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[PagesController::class,'store']);
+Route::get('/',[PagesController::class,'login']);
 Route::get('/next',[PagesController::class,'nextPage']);
 Route::get('/profile/{id}/{second}',[PagesController::class,'profile']);
 Route::get('/create',[PagesController::class,'create']);
@@ -42,4 +42,5 @@ Route::get('/product_add',[PagesController::class,'product_add']);
 Route::post('/product_add',[PagesController::class,'storage_product']);
 Route::get('/edit_product/{id}',[PagesController::class,'edit_product']);
 Route::post('/edit_product',[PagesController::class,'update_product']);
+Route::post('/cart/add', 'CartController@addToCart')->name('cart.add');
 
