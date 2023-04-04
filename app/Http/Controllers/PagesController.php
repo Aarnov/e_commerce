@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\Register;
+use App\Models\cart;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Student;
@@ -13,6 +14,11 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Intervention\Image\Facades\Image;
+use Illuminate\Validation\Rules;
+
+
+
+
 
 class PagesController extends Controller
 {
@@ -129,6 +135,13 @@ class PagesController extends Controller
 
     }
 
+    public function delete_cart($id){
+        $cart=Cart::where('id',$id)->first();
+        $cart->delete();
+        return redirect('store');
+
+    }
+
 public function signup(){
         return view("signup");
 }
@@ -138,16 +151,26 @@ public function signup(){
     }
 
     public function signupForm(Request $request){
+        $request->validate([
+
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+
+            'password' => ['required',  Rules\Password::defaults()],
+        ]);
+
+
         $user = new User();
         $user->name="A";
         $user->email = $request->email;
         $user->password =Hash::make($request->password) ;
         $user->save();
-        return redirect('login');
+        return view("login");
 
     }
 
     public function loginForm(Request $request){
+
+
         $credentials=[
             'email'=>$request->email,
             'password'=>$request->password
@@ -167,6 +190,11 @@ public function signup(){
 
     }
 
+    public function logout() {
+        Auth::logout();
+        return view('login');
+    }
+
     public function blank(){
         return view("blank");
     }
@@ -177,13 +205,13 @@ public function signup(){
         return view("index");
     }
     public function product($id){
-
+        $user_id=Auth::id();
         $product=product::where('id',$id)->first();
 
-
+        $carts=cart::where('user_id',$user_id)->get();
 
         $data = [
-
+            'carts'=>$carts,
             'product' => $product
         ];
 
@@ -194,12 +222,27 @@ public function signup(){
     public function store(){
         $categories = category::get();
         $products=product::get();
+        $id=Auth::id();
+        $carts=cart::where('user_id',$id)->get();
+
+
         $data = [
             'categories' => $categories,
-            'products' => $products
+            'products' => $products,
+            'carts'=>$carts
         ];
 
         return view("store")->with($data);
+    }
+
+    public function add_to_cart(Request $request){
+        $carts = new cart();
+        $carts->user_id = Auth::id();
+       $carts->product_id = $request->product_id;
+       $carts->quantity = $request->quantity;
+$carts->save();
+        return redirect()->back()->with('Product added successfully to cart...');
+
     }
 
     public function categories(){

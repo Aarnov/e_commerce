@@ -17,9 +17,19 @@
             <div class="card-header text-center bg-primary text-white w-1000">
                 <h2>Register Form</h2>
             </div>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="card-body">
                 <form action="{{action([\App\Http\Controllers\PagesController::class,'signupForm'])}}" method="post">
                     @csrf
+
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email"  name="email" class="form-control" id="email" placeholder="">
@@ -36,7 +46,7 @@
                     <button type="submit" class="btn btn-secondary w-100">Sign Up</button>
                 </form>
             <div class="card-footer text-center">
-                <small>Already signed up?<a href="{{url('/login')}}">Click here</a></small>
+                <small>Already signed up?<a href="{{url('/')}}">Click here</a></small>
             </div>
                 <div class="card-footer text-center">
                     <small>&copy;Aarnov Adhikari</small>

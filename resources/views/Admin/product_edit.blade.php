@@ -45,7 +45,7 @@
             </ul>
             <ul class="header-links pull-right">
 
-                <li><a href="{{url('/login')}}"><i class="fa fa-user-o"></i> My Account</a></li>
+                <li><a href="{{url('/')}}"><i class="fa fa-user-o"></i> My Account</a></li>
             </ul>
         </div>
     </div>
